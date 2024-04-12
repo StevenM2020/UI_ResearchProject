@@ -3,3 +3,7 @@
 
 #include "EndScreen.h"
 
+void UEndScreen::BackToStart()
+{
+	MainMenuWidget->Navigate(0,0);
+}

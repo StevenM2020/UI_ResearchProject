@@ -3,3 +3,7 @@
 
 #include "StartScreenWidget.h"
 
+void UStartScreenWidget::Start()
+{
+	MainMenuWidget->Navigate(0,1);
+}
