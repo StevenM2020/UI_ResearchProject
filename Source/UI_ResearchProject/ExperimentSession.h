@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+#include "TimerManager.h"
 #include "ExperimentSession.generated.h"
 
 /**
@@ -23,13 +24,29 @@ private:
 	
 	float TotalTime;
 
+	float TaskTime;
+
+	float MaxSessionTime = 10;
+
+	float TickRate = 0.01;
+
+	bool SessionRunning;
+	
+	FTimerHandle SessionTimerHandle;
+	void SessionTick();
+	void SaveData();
 
 public:
 	void StartNewSession();
-	void EndSession(float NewTotalTime);
+	void EndSession();
 	void AddFeature(FString Feature, bool On);
-	void EndTask(float Time);
+	void EndTask();
 	bool IsFeatureOn(FString Feature);
 	int	GetSessionNumber();
+	float GetTaskTime();
+	float GetTotalTime();
+	float GetMaxTime();
+	void SetMaxTime(float MaxTime);
+	bool IsSessionRunning();
 };
 

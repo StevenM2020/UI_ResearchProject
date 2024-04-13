@@ -6,6 +6,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/Button.h"
+#include "ExperimentGameInstance.h"
 #include "UMainMenuWidget.generated.h"
 
 
@@ -17,6 +18,14 @@ class UI_RESEARCHPROJECT_API UUMainMenuWidget : public UUserWidget
 {
 	GENERATED_BODY()
 
+protected:
+	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
+	virtual void NativeConstruct() override;
+
+private:
+	UExperimentGameInstance* ExperimentGameInstance;
+	float MaxTotalTime;
+	
 public:
 	
 	UPROPERTY(BlueprintReadWrite, Category = "Menus")

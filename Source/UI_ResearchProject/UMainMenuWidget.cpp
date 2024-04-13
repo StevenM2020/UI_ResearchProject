@@ -5,6 +5,33 @@
 
 #include "DynamicMesh/DynamicMesh3.h"
 
+void UUMainMenuWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
+{
+	Super::NativeTick(MyGeometry, InDeltaTime);
+
+	if(ExperimentGameInstance->ExperimentSession->IsSessionRunning() && ExperimentGameInstance->ExperimentSession->GetTotalTime() >= MaxTotalTime)
+	{
+		ExperimentGameInstance->ExperimentSession->EndSession();
+		Navigate(0,2);
+	}
+	
+}
+
+void UUMainMenuWidget::NativeConstruct()
+{
+	Super::NativeConstruct();
+	
+	ExperimentGameInstance = Cast<UExperimentGameInstance>(GetWorld()->GetGameInstance());
+
+	// Optional: Check if the cast was successful
+	if (!ExperimentGameInstance)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("ExperimentGameInstance is not valid or not of the expected type"));
+	}
+
+	MaxTotalTime = ExperimentGameInstance->ExperimentSession->GetMaxTime();
+}
+
 void UUMainMenuWidget::Navigate(int32 Level, int32 ActiveWidgetIndex)
 {
 	if (WidgetSwitchers.IsValidIndex(Level))
@@ -13,51 +40,20 @@ void UUMainMenuWidget::Navigate(int32 Level, int32 ActiveWidgetIndex)
 		if (TargetSwitcher && TargetSwitcher->GetWidgetAtIndex(ActiveWidgetIndex))
 		{
 			TargetSwitcher->SetActiveWidgetIndex(ActiveWidgetIndex);
+			//TargetSwitcher->GetChildAt(ActiveWidgetIndex)->SetVisibility(ESlateVisibility::Hidden);
+			//TargetSwitcher->GetChildAt(ActiveWidgetIndex)->SetVisibility(ESlateVisibility::Visible);
+
+			//UExperimentGameInstance* ExperimentGameInstance = Cast<UExperimentGameInstance>(GetWorld()->GetGameInstance());
+
+
+			
+			
+			if (ExperimentGameInstance)
+			{
+				//UE_LOG(LogTemp, Warning, TEXT("Broadcasting OnNavigationChanged."));
+				ExperimentGameInstance->OnNavigationChanged.Broadcast();
+				//UE_LOG(LogTemp, Warning, TEXT("Broadcasted OnNavigationChanged."));
+			}
 		}
 	}
 }
-
-// void UUMainMenuWidget::OnLobbyClicked()
-// {
-// 	Navigate(1,0);
-// 	UE_LOG(LogTemp, Warning, TEXT("Your message here."));
-// }
-//
-// void UUMainMenuWidget::OnInventoryClicked()
-// {
-// 	Navigate(1, 1);
-// }
-//
-// void UUMainMenuWidget::OnOverviewClicked()
-// {
-// 	Navigate(0, 2);
-// }
-//
-// void UUMainMenuWidget::OnEquipmentClicked()
-// {
-// 	Navigate(1, 2);
-// }
-//
-// void UUMainMenuWidget::NativeConstruct()
-// {
-// 	Super::NativeConstruct();
-//
-// 	if (btnLobby)
-// 	{
-// 		btnLobby->OnClicked.AddDynamic(this, &UUMainMenuWidget::OnLobbyClicked);
-// 	}
-//
-// 	if (btnInventory)
-// 	{
-// 		btnInventory->OnClicked.AddDynamic(this, &UUMainMenuWidget::OnInventoryClicked);
-// 	}
-// 	if (btnEquiptment)
-// 	{
-// 		btnEquiptment->OnClicked.AddDynamic(this, &UUMainMenuWidget::OnEquipmentClicked);
-// 	}
-// 	if (btnOverview)
-// 	{
-// 		btnOverview->OnClicked.AddDynamic(this, &UUMainMenuWidget::OnOverviewClicked);
-// 	}
-// 	// Repeat for each button, binding to the appropriate handler...
-// }

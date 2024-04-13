@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "UMainMenuWidget.h"
+#include "ExperimentGameInstance.h"
 #include "LobbyScreen.generated.h"
 
 /**
@@ -17,6 +18,7 @@ class UI_RESEARCHPROJECT_API ULobbyScreen : public UUserWidget
 
 protected:
 	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
+	virtual void NativeConstruct() override;  // Declare NativeConstruct for clarity and proper access
 
 public:
 	UFUNCTION(BlueprintCallable, Category = "Nav")
@@ -41,4 +43,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Experiment")
 	float PB_Percent;
+
+
+	UExperimentGameInstance* ExperimentGameInstance;
 };

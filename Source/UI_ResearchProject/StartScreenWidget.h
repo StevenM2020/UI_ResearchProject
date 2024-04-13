@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UMainMenuWidget.h"
+#include "ExperimentGameInstance.h"
 #include "Blueprint/UserWidget.h"
 #include "StartScreenWidget.generated.h"
 
@@ -21,4 +22,10 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, Category = "Menus")
 	UUMainMenuWidget *MainMenuWidget;
+
+	UExperimentGameInstance* ExperimentGameInstance;
+
+protected:
+	virtual void NativeConstruct() override;  // Declare NativeConstruct for clarity and proper access
+	
 };
