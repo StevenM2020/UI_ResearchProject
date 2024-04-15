@@ -22,8 +22,7 @@ void UUMainMenuWidget::NativeConstruct()
 	Super::NativeConstruct();
 	
 	ExperimentGameInstance = Cast<UExperimentGameInstance>(GetWorld()->GetGameInstance());
-
-	// Optional: Check if the cast was successful
+	
 	if (!ExperimentGameInstance)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("ExperimentGameInstance is not valid or not of the expected type"));
@@ -40,19 +39,11 @@ void UUMainMenuWidget::Navigate(int32 Level, int32 ActiveWidgetIndex)
 		if (TargetSwitcher && TargetSwitcher->GetWidgetAtIndex(ActiveWidgetIndex))
 		{
 			TargetSwitcher->SetActiveWidgetIndex(ActiveWidgetIndex);
-			//TargetSwitcher->GetChildAt(ActiveWidgetIndex)->SetVisibility(ESlateVisibility::Hidden);
-			//TargetSwitcher->GetChildAt(ActiveWidgetIndex)->SetVisibility(ESlateVisibility::Visible);
-
-			//UExperimentGameInstance* ExperimentGameInstance = Cast<UExperimentGameInstance>(GetWorld()->GetGameInstance());
-
-
 			
 			
 			if (ExperimentGameInstance)
 			{
-				//UE_LOG(LogTemp, Warning, TEXT("Broadcasting OnNavigationChanged."));
 				ExperimentGameInstance->OnNavigationChanged.Broadcast();
-				//UE_LOG(LogTemp, Warning, TEXT("Broadcasted OnNavigationChanged."));
 			}
 		}
 	}

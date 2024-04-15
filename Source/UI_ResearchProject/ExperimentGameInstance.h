@@ -3,7 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CharacterManager.h"
 #include "ExperimentSession.h"
+#include "EquipmentManager.h"
 #include "Engine/GameInstance.h"
 #include "ExperimentGameInstance.generated.h"
 /**
@@ -16,6 +18,13 @@ class UI_RESEARCHPROJECT_API UExperimentGameInstance : public UGameInstance
 
 public:
 	UExperimentSession* ExperimentSession;
+	UEquipmentManager* EquipmentManager;
+	UCharacterManager* CharacterManager;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Inventory")
+	UDataTable* ItemDataTable;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Inventory")
+	UDataTable* CharacterDataTable;
 	
 	virtual void Init() override;
 

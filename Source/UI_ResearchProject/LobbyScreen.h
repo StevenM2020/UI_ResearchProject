@@ -44,6 +44,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Experiment")
 	float PB_Percent;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Experiment")
+	FCharacterInfo CharacterInfo;
 
 	UExperimentGameInstance* ExperimentGameInstance;
+
+	void HandleNavigationChanged();
 };

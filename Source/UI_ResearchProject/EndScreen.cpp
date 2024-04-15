@@ -32,7 +32,7 @@ void UEndScreen::NativeConstruct()
 
 void UEndScreen::NativeDestruct()
 {
-	//UExperimentGameInstance* ExperimentGameInstance = Cast<UExperimentGameInstance>(GetWorld()->GetGameInstance());
+	
 	if (ExperimentGameInstance)
 	{
 		ExperimentGameInstance->OnNavigationChanged.RemoveAll(this);

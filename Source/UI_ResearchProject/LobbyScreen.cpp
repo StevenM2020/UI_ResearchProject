@@ -26,6 +26,8 @@ void ULobbyScreen::NativeConstruct()
 	}
 
 	MaxTotalTime = ExperimentGameInstance->ExperimentSession->GetMaxTime();
+
+	ExperimentGameInstance->OnNavigationChanged.AddUObject(this, &ULobbyScreen::HandleNavigationChanged);
 }
 
 void ULobbyScreen::FinishExperiment()
@@ -39,3 +41,19 @@ void ULobbyScreen::NextTask()
 {
 	ExperimentGameInstance->ExperimentSession->EndTask();
 }
+
+
+void ULobbyScreen::HandleNavigationChanged()
+{
+	CharacterInfo = ExperimentGameInstance->CharacterManager->GetCharacterInfo(0);
+	if (CharacterInfo.IsValid)
+	{
+		// Proceed with using CharacterInfo
+	}
+	else
+	{
+		// Handle the error: Invalid character ID
+	}
+	
+}
+

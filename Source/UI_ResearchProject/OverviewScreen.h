@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "ExperimentGameInstance.h"
 #include "OverviewScreen.generated.h"
 
 /**
