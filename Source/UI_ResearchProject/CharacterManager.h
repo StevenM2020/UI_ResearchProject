@@ -33,11 +33,25 @@ struct FCharacterInfo : public FTableRowBase
 	}
 };
 
+USTRUCT(BlueprintType)
+struct FCharInfo 
+{
+	GENERATED_BODY()
 
-
-
-
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString Weapon1;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString Weapon2;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString Item1;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString Item2;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString Item3;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString Item4;
+	
+};
 
 
 UCLASS()
@@ -61,7 +75,9 @@ public:
 
 	int GetCurrentCharacterID();
 
-	bool SetCrurentCharacterID(int CharID);
+	bool SetCurrentCharacterID(int CharID);
+
+	TArray<FString> GetCharacterNames();
 
 	FCharacterInfo GetCharacterInfo(int CharID);
 };

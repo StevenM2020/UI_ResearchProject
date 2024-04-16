@@ -7,6 +7,9 @@
 #include "ExperimentGameInstance.h"
 #include "OverviewScreen.generated.h"
 
+
+
+
 /**
  * 
  */
@@ -14,5 +17,26 @@ UCLASS()
 class UI_RESEARCHPROJECT_API UOverviewScreen : public UUserWidget
 {
 	GENERATED_BODY()
-	
+
+protected:
+	//virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
+	virtual void NativeConstruct() override;  // Declare NativeConstruct for clarity and proper access
+
+public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Experiment")
+	FCharacterInfo CharacterInfo;
+	UExperimentGameInstance* ExperimentGameInstance;
+	void HandleNavigationChanged();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
+	TArray<FString> Names;
+
+	int CurrentCharacterID = -1;
+
+	UFUNCTION(BlueprintCallable, Category = "Character")
+	void SwitchCharacter(int ID);
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
+	FCharInfo CurrentCharacterInfo;
 };

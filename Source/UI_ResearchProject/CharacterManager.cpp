@@ -57,7 +57,7 @@ int UCharacterManager::GetCurrentCharacterID()
 	return CurrentCharacterID;
 }
 
-bool UCharacterManager::SetCrurentCharacterID(int CharID)
+bool UCharacterManager::SetCurrentCharacterID(int CharID)
 {
 	if(CharID >= 0 && CharID < Characters.Num())
 	{
@@ -65,6 +65,16 @@ bool UCharacterManager::SetCrurentCharacterID(int CharID)
 		return true;
 	}
 	return false;
+}
+
+TArray<FString> UCharacterManager::GetCharacterNames()
+{
+	TArray<FString> CharArray;
+	for (FCharacterInfo Character : Characters)
+	{
+		CharArray.Add(Character.Name);
+	}
+	return CharArray;
 }
 
 FCharacterInfo UCharacterManager::GetCharacterInfo(int CharID)
