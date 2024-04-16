@@ -74,9 +74,8 @@ public:
 	void InitializeFromDataTable(UDataTable* DataTable);
 
 	int GetCurrentCharacterID();
-
 	bool SetCurrentCharacterID(int CharID);
-
+	
 	TArray<FString> GetCharacterNames();
 
 	FCharacterInfo GetCharacterInfo(int CharID);

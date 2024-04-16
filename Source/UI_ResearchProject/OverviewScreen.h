@@ -35,7 +35,7 @@ public:
 	int CurrentCharacterID = -1;
 
 	UFUNCTION(BlueprintCallable, Category = "Character")
-	void SwitchCharacter(int ID);
+	void SwitchCharacter(int ID, bool Override);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
 	FCharInfo CurrentCharacterInfo;

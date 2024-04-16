@@ -20,16 +20,17 @@ void UOverviewScreen::NativeConstruct()
 
 	CharacterInfo = ExperimentGameInstance->CharacterManager->GetCharacterInfo(CurrentCharacterID);
 
+	SwitchCharacter(0, false);
 }
 
 void UOverviewScreen::HandleNavigationChanged()
 {
-	SwitchCharacter(0);
+	SwitchCharacter(CurrentCharacterID, true);
 }
 
-void UOverviewScreen::SwitchCharacter(int ID)
+void UOverviewScreen::SwitchCharacter(int ID, bool Override)
 {
-	if(ID != CurrentCharacterID)
+	if(ID != CurrentCharacterID || Override)
 	{
 		CurrentCharacterID = ID;
 		ExperimentGameInstance->CharacterManager->SetCurrentCharacterID(ID);
