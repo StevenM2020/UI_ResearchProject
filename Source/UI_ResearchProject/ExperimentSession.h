@@ -26,7 +26,7 @@ private:
 
 	float TaskTime;
 
-	float MaxSessionTime = 10;
+	float MaxSessionTime = 30;
 
 	float TickRate = 0.01;
 

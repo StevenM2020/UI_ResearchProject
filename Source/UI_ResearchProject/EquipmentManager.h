@@ -56,9 +56,11 @@ public:
 
 	//TArray<FItemSummary> GetItemList();
 
-	//FItemInfo GetItem(int ID);
+	FItemData GetItem(int ID);
 
 	FString GetItemName(int ID);
 	
 	void InitializeInventoryFromDataTable(UDataTable* DataTable);
+
+	TArray<FItemSummary> GetItemsSummary();
 };

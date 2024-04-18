@@ -8,13 +8,13 @@ bool UCharacterManager::AddWeaponToCharacter(int CharacterID, int WeaponID)
 	return false;
 }
 
-int UCharacterManager::AddWeaponToCharacter(int CharacterID, int WeaponID, int WeaponSlot)
+void UCharacterManager::AddWeaponToCharacter(int CharacterID, int WeaponID, int WeaponSlot)
 {
-	if(!Characters[CharacterID].Weapons[WeaponSlot])
-		return -2;
+	if(!Characters[CharacterID].Weapons.IsValidIndex(WeaponSlot))
+		return;
 	int swap = Characters[CharacterID].Weapons[WeaponSlot];
 	Characters[CharacterID].Weapons[WeaponSlot] = WeaponID;
-	return swap;
+	UE_LOG(LogTemp, Warning, TEXT("Weapon"));
 }
 
 bool UCharacterManager::AddItemToCharacter(int CharacterID, int ItemID)
@@ -22,15 +22,19 @@ bool UCharacterManager::AddItemToCharacter(int CharacterID, int ItemID)
 	return false;
 }
 
-int UCharacterManager::AddItemToCharacter(int CharacterID, int ItemID, int ItemSlot)
+void UCharacterManager::AddItemToCharacter(int CharacterID, int ItemID, int ItemSlot)
 {
-	if(!Characters[CharacterID].Items[ItemSlot])
-		return -2;
+	//if(!Characters[CharacterID].Items.IsValidIndex(ItemSlot))
+	//	return;
 	int swap = Characters[CharacterID].Items[ItemSlot];
 	Characters[CharacterID].Items[ItemSlot] = ItemID;
-	return swap;
+	UE_LOG(LogTemp, Warning, TEXT("Item"));
 }
-
+// if(!Characters[CharacterID].Items[ItemSlot])
+// 	return -2;
+// int swap = Characters[CharacterID].Items[ItemSlot];
+// Characters[CharacterID].Items[ItemSlot] = ItemID;
+// return swap;
 void UCharacterManager::InitializeFromDataTable(UDataTable* DataTable)
 {
 	CharacterDataTable = DataTable;

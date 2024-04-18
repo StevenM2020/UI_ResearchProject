@@ -61,15 +61,15 @@ class UI_RESEARCHPROJECT_API UCharacterManager : public UObject
 private:
 	TArray<FCharacterInfo> Characters;
 	int CurrentCharacterID = 0;
-public:
+public: 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Inventory")
 	UDataTable* CharacterDataTable;
 	
 	bool AddWeaponToCharacter(int CharacterID, int WeaponID);
-	int AddWeaponToCharacter(int CharacterID, int WeaponID, int WeaponSlot);
+	void AddWeaponToCharacter(int CharacterID, int WeaponID, int WeaponSlot);
 
 	bool AddItemToCharacter(int CharacterID, int ItemID);
-	int AddItemToCharacter(int CharacterID, int ItemID, int ItemSlot); // returns whats in the spot
+	void AddItemToCharacter(int CharacterID, int ItemID, int ItemSlot); // returns whats in the spot
 
 	void InitializeFromDataTable(UDataTable* DataTable);
 

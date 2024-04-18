@@ -5,6 +5,11 @@
 #include "IDetailTreeNode.h"
 
 
+FItemData UEquipmentManager::GetItem(int ID)
+{
+	return Inventory[ID];
+}
+
 FString UEquipmentManager::GetItemName(int ID)
 {
 	FString Name = "";
@@ -40,6 +45,19 @@ void UEquipmentManager::InitializeInventoryFromDataTable(UDataTable* DataTable)
 		}
 	}
 	
+}
+
+TArray<FItemSummary> UEquipmentManager::GetItemsSummary()
+{
+	TArray<FItemSummary> ItemsSummary;
+	for (FItemData Item : Inventory)
+	{
+		FItemSummary ItemSummary;
+		ItemSummary.ID = Item.ID;
+		ItemSummary.Name = Item.ItemName;
+		ItemsSummary.Add(ItemSummary);
+	}
+	return ItemsSummary;
 }
 
 

@@ -33,6 +33,10 @@ void UEquipmentScreen::UpdateLocalInventory()
 		CurrentCharacterInfo.Item2 = ExperimentGameInstance->EquipmentManager->GetItemName(CharacterInfo.Items[1]);
 		CurrentCharacterInfo.Item3 = ExperimentGameInstance->EquipmentManager->GetItemName(CharacterInfo.Items[2]);
 		CurrentCharacterInfo.Item4 = ExperimentGameInstance->EquipmentManager->GetItemName(CharacterInfo.Items[3]);
+
+		Inventory = ExperimentGameInstance->EquipmentManager->GetItemsSummary();
+
+		OnInventoryUpdated();
 }
 
 void UEquipmentScreen::HandleNavigationChanged()
@@ -43,13 +47,30 @@ void UEquipmentScreen::HandleNavigationChanged()
 void UEquipmentScreen::SelectItem(int ID)
 {
 	CurrentItem = ID;
+	CurrentItemData = ExperimentGameInstance->EquipmentManager->GetItem(ID);
+	CurrentItemData.Description = "Description: " + CurrentItemData.Description;
+	CurrentItemStats = "Stats:\n";
+	for (FItemStat Stat : CurrentItemData.Stats)
+	{
+		CurrentItemStats.Append(FString::Printf(TEXT("%s: %f\n"), *Stat.StatName, Stat.Value)); 
+	}
 }
 
 void UEquipmentScreen::ChangeInventory()
 {
 	if(CurrentItem != -1 && CurrentSlot != -1)
 	{
-		
+		if(CurrentSlot < 2)
+		{
+			ExperimentGameInstance->CharacterManager->AddWeaponToCharacter(0,CurrentItem,CurrentSlot);
+			UE_LOG(LogTemp, Warning, TEXT("Update weapon"));
+		}
+		if(CurrentSlot > 1)
+		{
+			ExperimentGameInstance->CharacterManager->AddItemToCharacter(0,CurrentItem,CurrentSlot-2);
+			UE_LOG(LogTemp, Warning, TEXT("Update Item"));
+		}
+		UpdateLocalInventory();
 	}
 }
 
@@ -57,3 +78,11 @@ void UEquipmentScreen::SelectSlot(int ID)
 {
 	CurrentSlot = ID;
 }
+
+
+
+
+
+
+
+

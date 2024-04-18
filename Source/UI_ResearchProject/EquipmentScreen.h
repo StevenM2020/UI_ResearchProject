@@ -7,6 +7,8 @@
 #include "ExperimentGameInstance.h"
 #include "EquipmentScreen.generated.h"
 
+//DECLARE_DYNAMIC_MULTICAST_DELEGATE(FInventoryUpdatedDelegate);
+
 /**
  * 
  */
@@ -50,4 +52,18 @@ protected:
 
 	UFUNCTION(BlueprintCallable, Category = "Character")
 	void SelectSlot(int ID);
+	
+	UFUNCTION(BlueprintImplementableEvent , Category = "Inventory")
+	void OnInventoryUpdated();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
+	FItemData CurrentItemData;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
+	FString CurrentItemStats;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
+	TArray<FItemSummary> Inventory;
+
+	
 };
