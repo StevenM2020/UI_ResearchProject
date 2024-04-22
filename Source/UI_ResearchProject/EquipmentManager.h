@@ -63,4 +63,9 @@ public:
 	void InitializeInventoryFromDataTable(UDataTable* DataTable);
 
 	TArray<FItemSummary> GetItemsSummary();
+
+	void RemoveItem(int ID);
+	void AddItem(int ID);
+	bool IsWeapon(int ID);
+	bool HasItem(int ID);
 };

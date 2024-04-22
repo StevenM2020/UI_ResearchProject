@@ -65,11 +65,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Inventory")
 	UDataTable* CharacterDataTable;
 	
-	bool AddWeaponToCharacter(int CharacterID, int WeaponID);
-	void AddWeaponToCharacter(int CharacterID, int WeaponID, int WeaponSlot);
+	int AddWeaponToCharacter( int WeaponID, int WeaponSlot);
+	
+	int AddItemToCharacter( int ItemID, int ItemSlot); // returns whats in the spot
 
-	bool AddItemToCharacter(int CharacterID, int ItemID);
-	void AddItemToCharacter(int CharacterID, int ItemID, int ItemSlot); // returns whats in the spot
+	int RemoveItemOrWeapon(int Slot);
 
 	void InitializeFromDataTable(UDataTable* DataTable);
 

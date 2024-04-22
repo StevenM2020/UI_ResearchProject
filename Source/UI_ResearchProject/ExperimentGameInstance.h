@@ -30,4 +30,5 @@ public:
 
 	DECLARE_MULTICAST_DELEGATE(FOnNavigationChanged)
 	FOnNavigationChanged OnNavigationChanged;
+	
 };

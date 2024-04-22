@@ -60,6 +60,27 @@ TArray<FItemSummary> UEquipmentManager::GetItemsSummary()
 	return ItemsSummary;
 }
 
+void UEquipmentManager::RemoveItem(int ID)
+{
+	if(Inventory[ID].InitialQuantity > 0)
+		Inventory[ID].InitialQuantity--;
+}
+
+void UEquipmentManager::AddItem(int ID)
+{
+	Inventory[ID].InitialQuantity++;
+}
+
+bool UEquipmentManager::IsWeapon(int ID)
+{
+	return Inventory[ID].ItemType == EItemType::Weapon;
+}
+
+bool UEquipmentManager::HasItem(int ID)
+{
+	return Inventory[ID].InitialQuantity > 0;
+}
+
 
 // Loop through all rows in the Item Data Table
 // for (const auto& RowPair : ItemDataTable->GetRowMap())

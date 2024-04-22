@@ -32,7 +32,7 @@ struct FItemData : public FTableRowBase
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 ID;
+	int32 ID = -1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString ItemName;
