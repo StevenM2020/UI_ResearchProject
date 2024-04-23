@@ -47,7 +47,7 @@ struct FItemData : public FTableRowBase
 	EItemType ItemType;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 InitialQuantity;
+	int32 Quantity;
 	
 };
 

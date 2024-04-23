@@ -64,8 +64,12 @@ public:
 
 	TArray<FItemSummary> GetItemsSummary();
 
+	UFUNCTION(BlueprintCallable, Category = "Inventory")
+	TArray<FItemSummary> GetFilteredItemsSummary(EItemType ItemType, int MinimumQuantity);
+
 	void RemoveItem(int ID);
 	void AddItem(int ID);
 	bool IsWeapon(int ID);
 	bool HasItem(int ID);
+	
 };

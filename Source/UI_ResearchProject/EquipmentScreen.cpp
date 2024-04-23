@@ -25,23 +25,28 @@ void UEquipmentScreen::NativeConstruct()
 // need to move to character manager
 void UEquipmentScreen::UpdateLocalInventory()
 {
-		CharacterInfo = ExperimentGameInstance->CharacterManager->GetCharacterInfo(CurrentCharacterID);
+	CharacterInfo = ExperimentGameInstance->CharacterManager->GetCharacterInfo(CurrentCharacterID);
 
-		CurrentCharacterInfo.Weapon1 = ExperimentGameInstance->EquipmentManager->GetItemName(CharacterInfo.Weapons[0]);
-		CurrentCharacterInfo.Weapon2 = ExperimentGameInstance->EquipmentManager->GetItemName(CharacterInfo.Weapons[1]);
-		CurrentCharacterInfo.Item1 = ExperimentGameInstance->EquipmentManager->GetItemName(CharacterInfo.Items[0]);
-		CurrentCharacterInfo.Item2 = ExperimentGameInstance->EquipmentManager->GetItemName(CharacterInfo.Items[1]);
-		CurrentCharacterInfo.Item3 = ExperimentGameInstance->EquipmentManager->GetItemName(CharacterInfo.Items[2]);
-		CurrentCharacterInfo.Item4 = ExperimentGameInstance->EquipmentManager->GetItemName(CharacterInfo.Items[3]);
+	CurrentCharacterInfo.Weapon1 = ExperimentGameInstance->EquipmentManager->GetItemName(CharacterInfo.Weapons[0]);
+	CurrentCharacterInfo.Weapon2 = ExperimentGameInstance->EquipmentManager->GetItemName(CharacterInfo.Weapons[1]);
+	CurrentCharacterInfo.Item1 = ExperimentGameInstance->EquipmentManager->GetItemName(CharacterInfo.Items[0]);
+	CurrentCharacterInfo.Item2 = ExperimentGameInstance->EquipmentManager->GetItemName(CharacterInfo.Items[1]);
+	CurrentCharacterInfo.Item3 = ExperimentGameInstance->EquipmentManager->GetItemName(CharacterInfo.Items[2]);
+	CurrentCharacterInfo.Item4 = ExperimentGameInstance->EquipmentManager->GetItemName(CharacterInfo.Items[3]);
+	
+	if(FilterOn)
+	{
+		Inventory = ExperimentGameInstance->EquipmentManager->GetFilteredItemsSummary(FilterBy, 1);
+	}else
+	{
+		Inventory = ExperimentGameInstance->EquipmentManager->GetItemsSummary();	
+	}
+	CurrentItem = -1;
 
-		Inventory = ExperimentGameInstance->EquipmentManager->GetItemsSummary();
+	//CurrentItemData = FItemData();
+	//CurrentItemStats = "";
 
-		CurrentItem = -1;
-
-		//CurrentItemData = FItemData();
-		//CurrentItemStats = "";
-
-		OnInventoryUpdated();
+	OnInventoryUpdated();
 }
 
 void UEquipmentScreen::HandleNavigationChanged()
@@ -115,6 +120,8 @@ void UEquipmentScreen::SelectSlot(int ID)
 	CurrentSlot = ID;
 	ChangeCurrentItem(CurrentSlotData, CurrentSlotStats, ID);
 	IsEquipping = false;
+	FilterBy = ID > 1 ? EItemType::Equipment : EItemType::Weapon;
+	UpdateLocalInventory();
 }
 
 void UEquipmentScreen::ChangeCurrentItem(FItemData& Data, FString& Stats, int ID)
@@ -126,6 +133,11 @@ void UEquipmentScreen::ChangeCurrentItem(FItemData& Data, FString& Stats, int ID
 	{
 		Stats.Append(FString::Printf(TEXT("%s: %.1f\n"), *Stat.StatName, Stat.Value)); 
 	}
+}
+
+bool UEquipmentScreen::CanFilter()
+{
+	return ExperimentGameInstance->ExperimentSession->IsFeatureOn("filter");
 }
 
 

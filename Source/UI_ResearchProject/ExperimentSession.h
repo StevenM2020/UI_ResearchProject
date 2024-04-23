@@ -10,6 +10,21 @@
 /**
  * 
  */
+
+
+
+USTRUCT(BlueprintType)
+struct FFeatures
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool Filter;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool Search;
+	
+};
 UCLASS()
 class UI_RESEARCHPROJECT_API UExperimentSession : public UObject
 {
@@ -19,6 +34,8 @@ private:
  	int SessionNumber;
 
 	TArray<float> TaskTimes;
+
+	FFeatures UXFeatures;
 
 	TMap<FString, bool> FeaturesOn;
 	
@@ -48,5 +65,6 @@ public:
 	float GetMaxTime();
 	void SetMaxTime(float MaxTime);
 	bool IsSessionRunning();
+	void SetFeature(FString Name, bool On);
 };
 

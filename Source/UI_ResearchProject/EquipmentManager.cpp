@@ -60,15 +60,31 @@ TArray<FItemSummary> UEquipmentManager::GetItemsSummary()
 	return ItemsSummary;
 }
 
+TArray<FItemSummary> UEquipmentManager::GetFilteredItemsSummary(EItemType ItemType, int MinimumQuantity)
+{
+	TArray<FItemSummary> FilteredItems;
+	for (const FItemData& Item : Inventory)
+		{
+		if (Item.ItemType == ItemType && Item.Quantity >= MinimumQuantity)
+		{
+			FItemSummary Summary;
+			Summary.ID = Item.ID;
+			Summary.Name = Item.ItemName;
+			FilteredItems.Add(Summary);
+		}
+		}
+	return FilteredItems;
+}
+
 void UEquipmentManager::RemoveItem(int ID)
 {
-	if(Inventory[ID].InitialQuantity > 0)
-		Inventory[ID].InitialQuantity--;
+	if(Inventory[ID].Quantity > 0)
+		Inventory[ID].Quantity--;
 }
 
 void UEquipmentManager::AddItem(int ID)
 {
-	Inventory[ID].InitialQuantity++;
+	Inventory[ID].Quantity++;
 }
 
 bool UEquipmentManager::IsWeapon(int ID)
@@ -78,7 +94,7 @@ bool UEquipmentManager::IsWeapon(int ID)
 
 bool UEquipmentManager::HasItem(int ID)
 {
-	return Inventory[ID].InitialQuantity > 0;
+	return Inventory[ID].Quantity > 0;
 }
 
 

@@ -61,7 +61,12 @@ protected:
 
 	UFUNCTION(BlueprintCallable , Category = "Inventory")
 	void ChangeCurrentItem(FItemData& Data, FString& Stats, int ID);
-	
+
+	UFUNCTION(BlueprintCallable , Category = "Session")
+	bool CanFilter();
+
+	//UFUNCTION(BlueprintCallable , Category = "Inventory")
+	//bool CanFilter();
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
 	FItemData CurrentItemData;
@@ -79,5 +84,12 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
 	bool IsEquipping = true;
+
+	EItemType FilterBy;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
+	bool FilterOn;
+
+	
 	
 };

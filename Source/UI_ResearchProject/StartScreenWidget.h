@@ -25,6 +25,13 @@ public:
 
 	UExperimentGameInstance* ExperimentGameInstance;
 
+
+	UFUNCTION(BlueprintCallable, Category = "StartScreen")
+	void SetFilter(bool On);
+
+	UFUNCTION(BlueprintCallable, Category = "StartScreen")
+	void SetSearch(bool On);
+	
 protected:
 	virtual void NativeConstruct() override;  // Declare NativeConstruct for clarity and proper access
 	

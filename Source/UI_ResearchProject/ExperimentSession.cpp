@@ -62,7 +62,9 @@ void UExperimentSession::EndTask()
 
 bool UExperimentSession::IsFeatureOn(FString Feature)
 {
-	return FeaturesOn.Contains(Feature);
+	Feature = Feature.ToLower();
+	bool* isOnPtr = FeaturesOn.Find(Feature);
+	return (isOnPtr != nullptr) ? *isOnPtr : false;
 }
 
 int UExperimentSession::GetSessionNumber()
@@ -95,6 +97,12 @@ bool UExperimentSession::IsSessionRunning()
 	return SessionRunning;
 }
 
+void UExperimentSession::SetFeature(FString Name, bool On)
+{
+	Name = Name.ToLower();
+	FeaturesOn.FindOrAdd(Name) = On;
+}
+
 void UExperimentSession::SaveData()
 {
 	// Construct a filename with the session number
@@ -109,12 +117,16 @@ void UExperimentSession::SaveData()
 	OutputString += FString::Printf(TEXT("Total Time: %f seconds\n"), TotalTime);
 
 	// Append features info
-	OutputString += TEXT("Features On:\n");
-	for (const TPair<FString, bool>& Feature : FeaturesOn)
-	{
-		OutputString += FString::Printf(TEXT("%s: %s\n"), *Feature.Key, Feature.Value ? TEXT("True") : TEXT("False"));
-	}
+	 OutputString += TEXT("Features On:\n");
+	 for (const TPair<FString, bool>& Feature : FeaturesOn)
+	 {
+	 	OutputString += FString::Printf(TEXT("%s: %s\n"), *Feature.Key, Feature.Value ? TEXT("True") : TEXT("False"));
+	 }
 
+	// OutputString += TEXT("Features On:\n");
+	// OutputString += FString::Printf(TEXT("Filter: %s\n"), UXFeatures.Filter ? TEXT("True") : TEXT("False"));
+	// OutputString += FString::Printf(TEXT("Search: %s\n"), UXFeatures.Search ? TEXT("True") : TEXT("False"));
+	
 	// Append task times
 	OutputString += TEXT("Task Times:\n");
 	for (float Time : TaskTimes)
