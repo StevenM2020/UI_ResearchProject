@@ -20,7 +20,7 @@ class UI_RESEARCHPROJECT_API UOverviewScreen : public UUserWidget
 
 protected:
 	//virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
-	virtual void NativeConstruct() override;  // Declare NativeConstruct for clarity and proper access
+	virtual void NativeConstruct() override; 
 
 public:
 

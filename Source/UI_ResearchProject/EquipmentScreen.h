@@ -20,7 +20,7 @@ class UI_RESEARCHPROJECT_API UEquipmentScreen : public UUserWidget
 
 protected:
 	//virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
-	virtual void NativeConstruct() override;  // Declare NativeConstruct for clarity and proper access
+	virtual void NativeConstruct() override; 
 
 
 	public:
@@ -65,6 +65,15 @@ protected:
 	UFUNCTION(BlueprintCallable , Category = "Session")
 	bool CanFilter();
 
+	UFUNCTION(BlueprintCallable , Category = "Session")
+	bool CanSearch();
+	
+	UFUNCTION(BlueprintCallable , Category = "Session")
+	bool CanDoubleClick();
+
+	UFUNCTION(BlueprintCallable , Category = "Inventory")
+	void SearchTextChanged(FString NewSearchText);
+
 	//UFUNCTION(BlueprintCallable , Category = "Inventory")
 	//bool CanFilter();
 	
@@ -90,6 +99,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
 	bool FilterOn;
 
+	FString SearchText = "";
 	
 	
 };

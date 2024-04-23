@@ -18,10 +18,10 @@ struct FItemInventoryEntry
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 ItemID;  // Reference to Item Data Table
+	int32 ItemID; 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 Quantity;  // Dynamic quantity of the item
+	int32 Quantity;  
 };
 
 USTRUCT(BlueprintType)
@@ -44,12 +44,12 @@ class UI_RESEARCHPROJECT_API UEquipmentManager : public UObject
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Inventory")
-	UDataTable* ItemDataTable;  // Reference to the data table containing item definitions.
+	UDataTable* ItemDataTable; 
 
 	TArray<FItemData> Inventory;
 	
 	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Inventory")
-	//TArray<FItemInventoryEntry> Inventory;  // Dynamic inventory data.
+	//TArray<FItemInventoryEntry> Inventory;  
 
 	//void AddItemToInventory(int32 ItemID, int32 Quantity);
 	//void RemoveItemFromInventory(int32 ItemID, int32 Quantity);
@@ -72,4 +72,5 @@ public:
 	bool IsWeapon(int ID);
 	bool HasItem(int ID);
 	
+	TArray<FItemSummary> SearchInventory(const FString& SearchText, TArray<FItemSummary> ItemSummary);
 };

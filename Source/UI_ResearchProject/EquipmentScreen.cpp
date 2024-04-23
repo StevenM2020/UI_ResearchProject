@@ -43,6 +43,11 @@ void UEquipmentScreen::UpdateLocalInventory()
 	}
 	CurrentItem = -1;
 
+	if(!SearchText.IsEmpty())
+	{
+		Inventory = ExperimentGameInstance->EquipmentManager->SearchInventory(SearchText, Inventory);
+	}
+
 	//CurrentItemData = FItemData();
 	//CurrentItemStats = "";
 
@@ -138,6 +143,20 @@ void UEquipmentScreen::ChangeCurrentItem(FItemData& Data, FString& Stats, int ID
 bool UEquipmentScreen::CanFilter()
 {
 	return ExperimentGameInstance->ExperimentSession->IsFeatureOn("filter");
+}
+bool UEquipmentScreen::CanSearch()
+{
+	return ExperimentGameInstance->ExperimentSession->IsFeatureOn("search");
+}
+bool UEquipmentScreen::CanDoubleClick()
+{
+	return ExperimentGameInstance->ExperimentSession->IsFeatureOn("double click");
+}
+
+void UEquipmentScreen::SearchTextChanged(FString NewSearchText)
+{
+	SearchText = NewSearchText;
+	UpdateLocalInventory();
 }
 
 

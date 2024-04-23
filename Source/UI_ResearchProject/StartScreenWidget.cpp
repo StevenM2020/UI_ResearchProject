@@ -19,6 +19,10 @@ void UStartScreenWidget::SetSearch(bool On)
 	ExperimentGameInstance->ExperimentSession->SetFeature("Search", On);
 }
 
+void UStartScreenWidget::SetDoubleClick(bool On)
+{
+	ExperimentGameInstance->ExperimentSession->SetFeature("double click", On);
+}
 void UStartScreenWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
@@ -33,4 +37,5 @@ void UStartScreenWidget::NativeConstruct()
 
 	ExperimentGameInstance->ExperimentSession->SetFeature("filter", false);
 	ExperimentGameInstance->ExperimentSession->SetFeature("search", false);
+	ExperimentGameInstance->ExperimentSession->SetFeature("double click", false);
 }

@@ -12,13 +12,21 @@ FItemData UEquipmentManager::GetItem(int ID)
 
 FString UEquipmentManager::GetItemName(int ID)
 {
-	FString Name = "";
-	for (FItemData Item : Inventory)
-	{
-		if(Item.ID == ID)
-			Name = Item.ItemName;
+	if (ID < 0) {
+		UE_LOG(LogTemp, Error, TEXT("Attempted to get item name with invalid ID: %d"), ID);
+		return FString(); 
 	}
-	return Name;
+
+	for (const FItemData& Item : Inventory)
+	{
+		if (Item.ID == ID)
+		{
+			return Item.ItemName;
+		}
+	}
+	
+	UE_LOG(LogTemp, Warning, TEXT("Item with ID %d not found in the inventory."), ID);
+	return FString();
 }
 
 void UEquipmentManager::InitializeInventoryFromDataTable(UDataTable* DataTable)
@@ -111,5 +119,16 @@ bool UEquipmentManager::HasItem(int ID)
 // 	}
 // }
 
-
+TArray<FItemSummary> UEquipmentManager::SearchInventory(const FString& SearchText, TArray<FItemSummary> ItemSummary)
+{
+	TArray<FItemSummary> FilteredInventory;
+	for (const FItemSummary& Item : ItemSummary)
+	{
+		if (Item.Name.Contains(SearchText, ESearchCase::IgnoreCase, ESearchDir::FromStart))
+		{
+			FilteredInventory.Add(Item);
+		}
+	}
+	return FilteredInventory;
+}
 
