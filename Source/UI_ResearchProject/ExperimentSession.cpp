@@ -18,7 +18,7 @@ void UExperimentSession::StartNewSession()
 	SessionNumber = UKismetMathLibrary::RandomIntegerInRange(100000, 999999);
 	UE_LOG(LogTemp, Warning, TEXT("Session Number set to: %d"), SessionNumber);
 
-	UWorld* World = GEngine->GetWorldFromContextObject(this, EGetWorldErrorMode::LogAndReturnNull);
+
 	if (World)
 	{
 		World->GetTimerManager().SetTimer(SessionTimerHandle, this, &UExperimentSession::SessionTick, TickRate, true);
@@ -34,7 +34,7 @@ void UExperimentSession::EndSession()
 
 	EndTask();
 	
-	UWorld* World = GEngine->GetWorldFromContextObject(this, EGetWorldErrorMode::LogAndReturnNull);
+
 	if (World)
 	{
 		World->GetTimerManager().ClearTimer(SessionTimerHandle);
@@ -56,9 +56,17 @@ void UExperimentSession::AddFeature(FString Feature, bool On)
 
 void UExperimentSession::EndTask()
 {
-	TaskTimes.Add(TaskTime);
-	TaskTime = 0;
+	if (TaskTimes.IsValidIndex(0) || TaskTimes.Num() == 0)
+	{
+		TaskTimes.Add(TaskTime); 
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("EndTask(), TaskTimes array error"));
+	}
+	TaskTime = 0; 
 }
+
 
 bool UExperimentSession::IsFeatureOn(FString Feature)
 {
@@ -103,40 +111,42 @@ void UExperimentSession::SetFeature(FString Name, bool On)
 	FeaturesOn.FindOrAdd(Name) = On;
 }
 
+void UExperimentSession::SetWorld(UWorld* NewWorld)
+{
+	World = NewWorld;
+}
+
 void UExperimentSession::SaveData()
 {
-	// Construct a filename with the session number
+	// make file name and path
 	FString FileName = FString::Printf(TEXT("Session_%d.txt"), SessionNumber);
 	FString SavePath = FPaths::ProjectDir() + TEXT("Saved/Sessions/") + FileName;
 
-	// String to hold all the data
+	// Create the string to print
 	FString OutputString;
-
-	// Append session info
 	OutputString += FString::Printf(TEXT("Session Number: %d\n"), SessionNumber);
 	OutputString += FString::Printf(TEXT("Total Time: %f seconds\n"), TotalTime);
-
-	// Append features info
+	
 	 OutputString += TEXT("Features On:\n");
 	 for (const TPair<FString, bool>& Feature : FeaturesOn)
 	 {
 	 	OutputString += FString::Printf(TEXT("%s: %s\n"), *Feature.Key, Feature.Value ? TEXT("True") : TEXT("False"));
 	 }
-
-	// OutputString += TEXT("Features On:\n");
-	// OutputString += FString::Printf(TEXT("Filter: %s\n"), UXFeatures.Filter ? TEXT("True") : TEXT("False"));
-	// OutputString += FString::Printf(TEXT("Search: %s\n"), UXFeatures.Search ? TEXT("True") : TEXT("False"));
 	
-	// Append task times
 	OutputString += TEXT("Task Times:\n");
 	for (float Time : TaskTimes)
 	{
 		OutputString += FString::Printf(TEXT("%f\n"), Time);
 	}
 
-	// Save the string to a file
+	// print file
 	if (!FFileHelper::SaveStringToFile(OutputString, *SavePath))
 	{
 		UE_LOG(LogTemp, Error, TEXT("Failed to save session data to %s"), *SavePath);
 	}
+}
+
+UExperimentSession::~UExperimentSession()
+{
+	UE_LOG(LogTemp, Warning, TEXT("UExperimentSession is being destroyed"));
 }

@@ -74,9 +74,6 @@ protected:
 	UFUNCTION(BlueprintCallable , Category = "Inventory")
 	void SearchTextChanged(FString NewSearchText);
 
-	//UFUNCTION(BlueprintCallable , Category = "Inventory")
-	//bool CanFilter();
-	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
 	FItemData CurrentItemData;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")

@@ -6,7 +6,7 @@
 void UEquipmentScreen::NativeConstruct()
 {
 	Super::NativeConstruct();
-
+	
 	ExperimentGameInstance = Cast<UExperimentGameInstance>(GetWorld()->GetGameInstance());
 
 	if (!ExperimentGameInstance)
@@ -22,7 +22,7 @@ void UEquipmentScreen::NativeConstruct()
 	
 }
 
-// need to move to character manager
+// Updates the objects showing the local character information and equipment information.
 void UEquipmentScreen::UpdateLocalInventory()
 {
 	CharacterInfo = ExperimentGameInstance->CharacterManager->GetCharacterInfo(CurrentCharacterID);
@@ -48,9 +48,6 @@ void UEquipmentScreen::UpdateLocalInventory()
 		Inventory = ExperimentGameInstance->EquipmentManager->SearchInventory(SearchText, Inventory);
 	}
 
-	//CurrentItemData = FItemData();
-	//CurrentItemStats = "";
-
 	OnInventoryUpdated();
 }
 
@@ -69,6 +66,7 @@ void UEquipmentScreen::SelectItem(int ID)
 	IsEquipping = true;
 }
 
+// Function called by equip button to move an item from the equipment to the character.
 void UEquipmentScreen::Equip()
 {
 	if(CurrentItem >= 0 && CurrentSlot >= 0)
@@ -83,7 +81,6 @@ void UEquipmentScreen::Equip()
 				if(temp >= 0)
 					ExperimentGameInstance->EquipmentManager->AddItem(temp);
 			}
-			//UE_LOG(LogTemp, Warning, TEXT("Update weapon"));
 		}
 		else if(CurrentSlot > 1 && CurrentSlot < 6 && !IsWeapon)
 		{
@@ -94,12 +91,14 @@ void UEquipmentScreen::Equip()
 				if(temp >= 0)
 					ExperimentGameInstance->EquipmentManager->AddItem(temp);
 			}
-			//UE_LOG(LogTemp, Warning, TEXT("Update Item"));
 		}
+		ChangeCurrentItem(CurrentItemData, CurrentItemStats, CurrentItem);
+		ChangeCurrentItem(CurrentSlotData, CurrentSlotStats, CurrentSlot);
 		UpdateLocalInventory();
 	}
 }
 
+// Moves an item from the character to the equipment manager.
 void UEquipmentScreen::Unequip()
 {
 	if( CurrentSlot >= 0)
@@ -113,13 +112,6 @@ void UEquipmentScreen::Unequip()
 	}
 }
 
-// current slot
-// is it a weapon
-// is the quantity 0
-// is the character 0
-// is it equiping
-
-
 void UEquipmentScreen::SelectSlot(int ID)
 {
 	CurrentSlot = ID;
@@ -129,6 +121,7 @@ void UEquipmentScreen::SelectSlot(int ID)
 	UpdateLocalInventory();
 }
 
+// Updates item display info objects
 void UEquipmentScreen::ChangeCurrentItem(FItemData& Data, FString& Stats, int ID)
 {
 	Data = ExperimentGameInstance->EquipmentManager->GetItem(ID);

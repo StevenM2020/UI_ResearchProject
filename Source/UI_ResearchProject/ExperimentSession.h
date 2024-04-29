@@ -43,7 +43,7 @@ private:
 
 	float TaskTime;
 
-	float MaxSessionTime = 200;
+	float MaxSessionTime = 150;
 
 	float TickRate = 0.01;
 
@@ -52,6 +52,7 @@ private:
 	FTimerHandle SessionTimerHandle;
 	void SessionTick();
 	void SaveData();
+	virtual ~UExperimentSession() override;
 
 public:
 	void StartNewSession();
@@ -66,5 +67,6 @@ public:
 	void SetMaxTime(float MaxTime);
 	bool IsSessionRunning();
 	void SetFeature(FString Name, bool On);
+	void SetWorld(UWorld* NewWorld);
+	UWorld* World;
 };
-

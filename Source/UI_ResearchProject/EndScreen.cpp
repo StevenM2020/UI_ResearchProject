@@ -5,7 +5,8 @@
 
 void UEndScreen::BackToStart()
 {
-	MainMenuWidget->Navigate(0,0);
+	//MainMenuWidget->Navigate(0,0);
+	//ExperimentGameInstance->Reset();
 }
 
 void UEndScreen::UpdateOnVisible()
@@ -42,7 +43,6 @@ void UEndScreen::NativeDestruct()
 
 void UEndScreen::HandleNavigationChanged()
 {
-	// Refresh or update logic here
 	pin = ExperimentGameInstance->ExperimentSession->GetSessionNumber();
 }
 

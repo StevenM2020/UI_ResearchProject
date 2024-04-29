@@ -28,6 +28,7 @@ void UOverviewScreen::HandleNavigationChanged()
 	SwitchCharacter(CurrentCharacterID, true);
 }
 
+// sets the CurrentCharacterInfo object that all the text boxes are bound too
 void UOverviewScreen::SwitchCharacter(int ID, bool Override)
 {
 	if(ID != CurrentCharacterID || Override)

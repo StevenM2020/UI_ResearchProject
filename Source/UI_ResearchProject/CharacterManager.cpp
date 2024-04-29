@@ -16,8 +16,6 @@ int UCharacterManager::AddWeaponToCharacter(int WeaponID, int WeaponSlot)
 
 int UCharacterManager::AddItemToCharacter(int ItemID, int ItemSlot)
 {
-	//if(!Characters[CharacterID].Items.IsValidIndex(ItemSlot))
-	//	return;
 	int swap = Characters[CurrentCharacterID].Items[ItemSlot];
 	Characters[CurrentCharacterID].Items[ItemSlot] = ItemID;
 	UE_LOG(LogTemp, Warning, TEXT("Item"));
@@ -39,11 +37,7 @@ int UCharacterManager::RemoveItemOrWeapon(int Slot)
 	return temp;
 }
 
-// if(!Characters[CharacterID].Items[ItemSlot])
-// 	return -2;
-// int swap = Characters[CharacterID].Items[ItemSlot];
-// Characters[CharacterID].Items[ItemSlot] = ItemID;
-// return swap;
+
 void UCharacterManager::InitializeFromDataTable(UDataTable* DataTable)
 {
 	CharacterDataTable = DataTable;

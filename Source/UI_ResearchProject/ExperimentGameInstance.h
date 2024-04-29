@@ -7,6 +7,7 @@
 #include "ExperimentSession.h"
 #include "EquipmentManager.h"
 #include "Engine/GameInstance.h"
+#include "UObject/StrongObjectPtr.h"
 #include "ExperimentGameInstance.generated.h"
 /**
  * 
@@ -17,9 +18,9 @@ class UI_RESEARCHPROJECT_API UExperimentGameInstance : public UGameInstance
 	GENERATED_BODY()
 
 public:
-	UExperimentSession* ExperimentSession;
-	UEquipmentManager* EquipmentManager;
-	UCharacterManager* CharacterManager;
+	TStrongObjectPtr<UExperimentSession> ExperimentSession;
+	TStrongObjectPtr<UEquipmentManager> EquipmentManager;
+	TStrongObjectPtr<UCharacterManager> CharacterManager;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Inventory")
 	UDataTable* ItemDataTable;
@@ -27,6 +28,7 @@ public:
 	UDataTable* CharacterDataTable;
 	
 	virtual void Init() override;
+	virtual ~UExperimentGameInstance() override;
 
 	DECLARE_MULTICAST_DELEGATE(FOnNavigationChanged)
 	FOnNavigationChanged OnNavigationChanged;

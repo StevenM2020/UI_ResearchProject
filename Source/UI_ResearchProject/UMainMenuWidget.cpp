@@ -31,6 +31,7 @@ void UUMainMenuWidget::NativeConstruct()
 	MaxTotalTime = ExperimentGameInstance->ExperimentSession->GetMaxTime();
 }
 
+// Pages can call to switch to another page. Level = widget switcher, ActiveWidgetIndex = index
 void UUMainMenuWidget::Navigate(int32 Level, int32 ActiveWidgetIndex)
 {
 	if (WidgetSwitchers.IsValidIndex(Level))

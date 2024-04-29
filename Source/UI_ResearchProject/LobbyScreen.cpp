@@ -34,7 +34,6 @@ void ULobbyScreen::FinishExperiment()
 {
 	ExperimentGameInstance->ExperimentSession->EndSession();
 	MainMenuWidget->Navigate(0,2);
-	// then end the experiment
 }
 
 void ULobbyScreen::NextTask()
@@ -45,15 +44,6 @@ void ULobbyScreen::NextTask()
 
 void ULobbyScreen::HandleNavigationChanged()
 {
-	CharacterInfo = ExperimentGameInstance->CharacterManager->GetCharacterInfo(0);
-	if (CharacterInfo.IsValid)
-	{
-		// Proceed with using CharacterInfo
-	}
-	else
-	{
-		// Handle the error: Invalid character ID
-	}
-	
+	CharacterInfo = ExperimentGameInstance->CharacterManager->GetCharacterInfo(ExperimentGameInstance->CharacterManager->GetCurrentCharacterID());
 }
 

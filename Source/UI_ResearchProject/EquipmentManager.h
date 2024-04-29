@@ -47,14 +47,6 @@ public:
 	UDataTable* ItemDataTable; 
 
 	TArray<FItemData> Inventory;
-	
-	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Inventory")
-	//TArray<FItemInventoryEntry> Inventory;  
-
-	//void AddItemToInventory(int32 ItemID, int32 Quantity);
-	//void RemoveItemFromInventory(int32 ItemID, int32 Quantity);
-
-	//TArray<FItemSummary> GetItemList();
 
 	FItemData GetItem(int ID);
 

@@ -3,20 +3,30 @@
 
 #include "ExperimentGameInstance.h"
 
+#include "Kismet/GameplayStatics.h"
+
 void UExperimentGameInstance::Init()
 {
 	Super::Init();
 
-	// Create a new instance of the data controlling classes
-	ExperimentSession = NewObject<UExperimentSession>(this, UExperimentSession::StaticClass());
-	EquipmentManager = NewObject<UEquipmentManager>(this, UEquipmentManager::StaticClass());
-	CharacterManager = NewObject<UCharacterManager>(this, UCharacterManager::StaticClass());
-	// should add some code to check others
-	if (ExperimentSession)
+	if(ExperimentSession || EquipmentManager || CharacterManager)
 	{
-		// session worked
+		return;
 	}
 
+	UE_LOG(LogTemp, Warning, TEXT("UExperimentGameInstance is creating data objects"));
+
+	// Creates the objects. Used TStrongObjectPtr to stop them from being deleted.
+	ExperimentSession = TStrongObjectPtr<UExperimentSession>(NewObject<UExperimentSession>(this, UExperimentSession::StaticClass()));
+	EquipmentManager = TStrongObjectPtr<UEquipmentManager>(NewObject<UEquipmentManager>(this, UEquipmentManager::StaticClass()));
+	CharacterManager = TStrongObjectPtr<UCharacterManager>(NewObject<UCharacterManager>(this, UCharacterManager::StaticClass()));
+
+	ExperimentSession->SetWorld(GEngine->GetWorldFromContextObject(this, EGetWorldErrorMode::LogAndReturnNull));
 	EquipmentManager->InitializeInventoryFromDataTable(ItemDataTable);
 	CharacterManager->InitializeFromDataTable(CharacterDataTable);
+}
+
+UExperimentGameInstance::~UExperimentGameInstance()
+{
+	UE_LOG(LogTemp, Warning, TEXT("UExperimentGameInstance is being destroyed"));
 }
